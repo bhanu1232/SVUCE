@@ -43,10 +43,10 @@ const Departments = () => {
       established: 1986
     },
     {
-      id: "chemical",
-      name: "Chemical Engineering",
+      id: "sciences",
+      name: "Humanities & Sciences",
       icon: <FlaskConical className="w-10 h-10" />,
-      description: "Transforming matter for a sustainable and innovative future.",
+      description: "Building strong foundations in science, mathematics, and humanities.",
       established: 1970
     }
   ];

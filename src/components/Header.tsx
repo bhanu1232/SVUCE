@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { m } from 'framer-motion';
 import { Menu, X, Phone, Mail, Facebook, Instagram, Twitter, Youtube, ChevronDown } from 'lucide-react';
 import logo from "../assets/SVUCE.png";
 
@@ -100,7 +101,14 @@ const Header = () => {
                         : 'text-gray-700 hover:text-iare-blue hover:bg-gray-50'
                         }`}
                     >
-                      {label}
+                      <m.span
+                        initial={false}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="inline-block"
+                      >
+                        {label}
+                      </m.span>
                     </Link>
                   </li>
                 ))}

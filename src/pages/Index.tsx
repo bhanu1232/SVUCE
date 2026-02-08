@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { Link } from 'react-router-dom';
@@ -158,24 +159,47 @@ const Index = () => {
               {carouselImages.map((image, index) => (
                 <CarouselItem key={index} className="h-full">
                   <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] overflow-hidden">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center animate-zoom-out"
+                    <m.div
+                      className="absolute inset-0 bg-cover bg-center"
                       style={{ backgroundImage: `url(${image.url})` }}
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 20, ease: "linear" }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
-                    </div>
+                    </m.div>
                     <div className="relative z-10 flex flex-col justify-center h-full px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 container mx-auto">
                       <div className="max-w-4xl">
-                        <h1 className="text-xs sm:text-sm md:text-base font-semibold text-white/90 mb-3 sm:mb-4 uppercase tracking-wider animate-slide-up">
+                        <m.h1
+                          className="text-xs sm:text-sm md:text-base font-semibold text-white/90 mb-3 sm:mb-4 uppercase tracking-wider"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5 }}
+                        >
                           Welcome To
-                        </h1>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight animate-slide-up animation-delay-100">
+                        </m.h1>
+                        <m.h2
+                          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.2 }}
+                        >
                           {image.title}
-                        </h2>
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-7 md:mb-8 font-light max-w-3xl animate-slide-up animation-delay-200">
+                        </m.h2>
+                        <m.p
+                          className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-7 md:mb-8 font-light max-w-3xl"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.4 }}
+                        >
                           65 Years of Unwavering Trust, Shaping Future Engineers
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-slide-up animation-delay-300">
+                        </m.p>
+                        <m.div
+                          className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.6 }}
+                        >
                           <Link
                             to="/departments"
                             className="inline-flex items-center justify-center bg-iare-blue hover:bg-blue-700 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base rounded-md transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1"
@@ -188,7 +212,7 @@ const Index = () => {
                           >
                             Learn More
                           </Link>
-                        </div>
+                        </m.div>
                       </div>
                     </div>
                   </div>
@@ -225,18 +249,26 @@ const Index = () => {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
               {cseAchievements.map((achievement, index) => (
-                <div
+                <m.div
                   key={index}
                   className="bg-white border border-gray-200 p-8 rounded-xl shadow hover:shadow-lg transition-all group"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
                   <div className="flex justify-center mb-4">
-                    <div className="bg-iare-blue p-4 rounded-full text-white group-hover:scale-110 transition-transform">
+                    <m.div
+                      className="bg-iare-blue p-4 rounded-full text-white"
+                      whileHover={{ scale: 1.1 }}
+                    >
                       {achievement.icon}
-                    </div>
+                    </m.div>
                   </div>
                   <h3 className="text-4xl font-extrabold text-gray-900 mb-2">{achievement.value}</h3>
                   <p className="text-gray-600">{achievement.title}</p>
-                </div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -261,18 +293,26 @@ const Index = () => {
                 { title: "Computer Science", icon: <Code className="w-8 h-8 text-iare-teal" />, desc: "Leading the digital revolution with software and AI." },
                 { title: "Chemical Engineering", icon: <FlaskConical className="w-8 h-8 text-iare-yellow" />, desc: "Innovating in materials, energy, and processes." }
               ].map((dept, index) => (
-                <div
+                <m.div
                   key={index}
                   className="bg-white p-8 border border-gray-200 rounded-xl shadow hover:shadow-lg transition-all group"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  whileHover={{ y: -5, borderColor: "var(--iare-blue)", transition: { duration: 0.2 } }}
                 >
                   <div className="flex items-center mb-4">
-                    <div className="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
+                    <m.div
+                      className="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                    >
                       {dept.icon}
-                    </div>
+                    </m.div>
                     <h3 className="text-lg font-semibold ml-4 group-hover:text-iare-blue">{dept.title}</h3>
                   </div>
                   <p className="text-gray-600">{dept.desc}</p>
-                </div>
+                </m.div>
               ))}
             </div>
             <div className="mt-12">
@@ -299,9 +339,13 @@ const Index = () => {
                 </div>
               ) : latestNews.length > 0 ? (
                 latestNews.map((item, index) => (
-                  <div
+                  <m.div
                     key={index}
                     className="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-lg transition-all group"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
                     <div className="flex items-center text-sm text-gray-500 mb-2">
                       <Calendar className="h-4 w-4 mr-2" />
@@ -312,7 +356,7 @@ const Index = () => {
                     <Link to="/news" className="text-iare-blue font-medium flex items-center group-hover:text-blue-700">
                       Read More <ChevronRight size={18} className="ml-1 group-hover:translate-x-1 transition-transform" />
                     </Link>
-                  </div>
+                  </m.div>
                 ))
               ) : (
                 <p className="text-center text-gray-500 py-8">No news available</p>

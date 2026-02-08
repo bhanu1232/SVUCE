@@ -34,7 +34,7 @@ const DepartmentManager = () => {
         { id: 'mechanical', name: 'Mechanical Engineering' },
         { id: 'ece', name: 'Electronics & Communication' },
         { id: 'cse', name: 'Computer Science' },
-        { id: 'chemical', name: 'Chemical Engineering' },
+        { id: 'sciences', name: 'Humanities & Sciences' },
     ];
 
     useEffect(() => {
